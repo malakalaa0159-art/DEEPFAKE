@@ -1,0 +1,680 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#041620">
+  <meta name="description" content="AI Image Detector - image analysis and reporting">
+  <title>AI Image Detector</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <div class="app-shell">
+
+    <header class="topbar">
+      <a class="brand" href="#home" data-route="home" aria-label="Home">
+        <span class="brand-icon" aria-hidden="true">
+          <svg viewBox="0 0 36 36" fill="none">
+            <path d="M18 3.5 30 8v9.3c0 7.1-4.8 12-12 15.2C10.8 29.3 6 24.4 6 17.3V8L18 3.5Z"/>
+            <path d="m12.5 17.5 3.7 3.7 7.6-8"/>
+          </svg>
+        </span>
+        <span>AI Image <b>Detector</b></span>
+      </a>
+
+      <button class="menu-toggle" id="menuToggle" type="button"
+        aria-label="Open navigation" aria-expanded="false">☰</button>
+
+      <nav class="main-nav" id="mainNav" aria-label="Main navigation">
+        <a href="#home" data-route="home" class="active">Home</a>
+        <a href="#features" data-route="features">Features</a>
+        <a href="#history" data-route="history">My reports</a>
+        <a href="#about" data-route="about">About</a>
+      </nav>
+
+      <div class="top-actions">
+        <button class="theme-button" id="themeToggle" type="button"
+          aria-label="Switch theme" title="Switch theme">☼</button>
+        <button class="account-button" id="accountButton" type="button"
+          data-route="account">Sign in <span>↗</span></button>
+      </div>
+    </header>
+
+    <main>
+
+      <!-- PAGE 1: HOME -->
+      <section class="app-view home-view active" id="view-home" data-view="home">
+        <div class="home-background-glow" aria-hidden="true"></div>
+
+        <div class="page-container home-grid">
+          <div class="hero-copy">
+            <div class="eyebrow">
+              <span class="eyebrow-dot"></span>
+              AI-POWERED IMAGE DETECTION
+            </div>
+
+            <h1>
+              Detect AI Images<br>
+              Before They <span>Deceive.</span>
+            </h1>
+
+            <p class="hero-description">
+              Discover more about an image with an AI-image detection workflow.
+              Upload your photo to review its details and generate a report.
+            </p>
+
+            <button class="primary-button hero-cta" id="heroUploadBtn" type="button">
+              Upload an image <span>→</span>
+            </button>
+
+            <p class="micro-copy">JPG, PNG, WEBP · Maximum 15 MB</p>
+
+            <div class="hero-badges">
+              <span><i>◇</i> Image-only analysis</span>
+              <span><i>▤</i> Detailed reports</span>
+              <span><i>✦</i> Report assistant</span>
+            </div>
+
+            <div class="hero-footnote">
+              <span class="status-light"></span>
+              AI detection model integration required
+            </div>
+          </div>
+
+          <div class="home-corner-label">
+            <span>01</span> / IMAGE DETECTION
+          </div>
+        </div>
+
+        <!-- Hidden file picker; there is no visible upload card -->
+        <form id="uploadForm" class="hidden-upload-form">
+          <input id="photoInput" type="file"
+            accept="image/jpeg,image/png,image/webp" hidden>
+        </form>
+
+        <p class="upload-error hidden" id="uploadError" role="alert"></p>
+      </section>
+
+      <!-- PAGE 2: ANALYSIS -->
+      <section class="app-view inner-view" id="view-analysis" data-view="analysis" hidden>
+        <div class="page-container page-content analysis-page">
+          <div class="page-heading">
+            <button class="back-button" type="button" data-back aria-label="Go back">
+              ← <span>Back</span>
+            </button>
+
+            <div class="heading-copy">
+              <span class="section-label">IMAGE WORKFLOW / STEP 02</span>
+              <h1>Analyzing your <span>image</span></h1>
+              <p>Follow the demo workflow while your report is prepared.</p>
+            </div>
+
+            <span class="scan-chip">
+              <span class="status-light pulse"></span>
+              SCAN IN PROGRESS
+            </span>
+          </div>
+
+          <div class="analysis-grid">
+            <section class="panel scan-panel">
+              <div class="scan-visual" aria-hidden="true">
+                <div class="scan-ring ring-a"></div>
+                <div class="scan-ring ring-b"></div>
+                <div class="scan-core">AI<span>✦</span></div>
+                <div class="scan-sweep"></div>
+              </div>
+
+              <span class="section-label centered">IMAGE ANALYSIS</span>
+              <h2 id="analysisTitle">Preparing your image</h2>
+              <p id="analysisDescription" class="muted-text">
+                Please wait while the demo workflow runs.
+              </p>
+
+              <div class="progress-track">
+                <div id="progressFill" class="progress-fill"></div>
+              </div>
+
+              <div class="progress-caption">
+                <span id="progressPercent">0%</span>
+                <span>Demo progress</span>
+              </div>
+            </section>
+
+            <section class="panel process-panel">
+              <div class="card-heading">
+                <div>
+                  <span class="section-label">PROCESS STATUS</span>
+                  <h2>Analysis steps</h2>
+                </div>
+                <span class="tiny-status">3 STEPS</span>
+              </div>
+
+              <div class="process-list">
+                <div class="process-step" id="stepUpload">
+                  <span class="step-number">01</span>
+                  <div>
+                    <b>Load image</b>
+                    <small>Read image and file properties</small>
+                  </div>
+                  <span class="step-status">WAITING</span>
+                </div>
+
+                <div class="process-step" id="stepVision">
+                  <span class="step-number">02</span>
+                  <div>
+                    <b>Review visual patterns</b>
+                    <small>Model connection required for real results</small>
+                  </div>
+                  <span class="step-status">WAITING</span>
+                </div>
+
+                <div class="process-step" id="stepReport">
+                  <span class="step-number">03</span>
+                  <div>
+                    <b>Prepare report</b>
+                    <small>Collect file details and demo output</small>
+                  </div>
+                  <span class="step-status">WAITING</span>
+                </div>
+              </div>
+
+              <div class="scan-file-card">
+                <img id="analysisPreview" alt="Image being analyzed">
+                <div>
+                  <span class="section-label">CURRENT IMAGE</span>
+                  <b id="analysisFileName">image.png</b>
+                  <small id="analysisFileMeta">Image file</small>
+                </div>
+                <span class="image-file-mark">▧</span>
+              </div>
+
+              <div class="prototype-note">
+                <span>ⓘ</span>
+                <p>
+                  <b>Demo limitation:</b> this interface does not have a trained
+                  AI-image detector connected. The displayed classification is
+                  only a placeholder.
+                </p>
+              </div>
+            </section>
+          </div>
+        </div>
+      </section>
+
+      <!-- PAGE 3: RESULT + CHATBOT -->
+      <section class="app-view inner-view" id="view-result" data-view="result" hidden>
+        <div class="page-container page-content result-page">
+          <div class="page-heading result-heading">
+            <button class="back-button" type="button" data-back aria-label="Go back">
+              ← <span>Back</span>
+            </button>
+
+            <div class="heading-copy">
+              <span class="section-label">REPORT OVERVIEW / STEP 03</span>
+              <h1>Your image <span>report</span></h1>
+              <p>Image details, demo output, and report Q&amp;A in one place.</p>
+            </div>
+
+            <div class="heading-actions">
+              <button class="secondary-button compact-button" id="downloadReport" type="button">
+                Export PDF <span>↓</span>
+              </button>
+              <button class="primary-button compact-button" type="button" data-route="home">
+                New image <span>＋</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="result-layout">
+            <section class="panel result-image-panel">
+              <div class="card-heading">
+                <div>
+                  <span class="section-label">YOUR UPLOAD</span>
+                  <h2>Image preview</h2>
+                </div>
+                <span class="image-file-chip">IMAGE</span>
+              </div>
+
+              <div class="result-image-wrap">
+                <img id="resultImage" alt="Uploaded image preview">
+                <div id="emptyResultImage" class="empty-result">
+                  <span>▧</span>
+                  <b>No image selected</b>
+                </div>
+              </div>
+
+              <div class="image-meta-grid">
+                <div><span>File name</span><b id="resultFileName">—</b></div>
+                <div><span>File type</span><b id="resultFileType">—</b></div>
+                <div><span>File size</span><b id="resultFileSize">—</b></div>
+                <div><span>Dimensions</span><b id="resultDimensions">—</b></div>
+              </div>
+            </section>
+
+            <section class="panel verdict-panel">
+              <div class="card-heading">
+                <div>
+                  <span class="section-label">DEMO CLASSIFICATION</span>
+                  <h2>AI-image check</h2>
+                </div>
+                <span class="demo-chip">SAMPLE DATA</span>
+              </div>
+
+              <div class="verdict-content">
+                <div class="verdict-copy">
+                  <div class="verdict-icon">✦</div>
+                  <div>
+                    <h3 id="resultVerdict">Demo result only</h3>
+                    <p id="resultSummary">A real AI model is not connected.</p>
+                  </div>
+                </div>
+
+                <div class="score-meter">
+                  <div class="score-ring"><span id="resultScore">87%</span></div>
+                  <div>
+                    <b>Sample score</b>
+                    <small>Not a real prediction</small>
+                  </div>
+                </div>
+              </div>
+
+              <div class="result-explanation">
+                <span>ⓘ</span>
+                <p>
+                  The percentage is a visual placeholder. It does not determine
+                  whether this image was made by AI.
+                </p>
+              </div>
+
+              <div class="report-details">
+                <div><span>Report ID</span><b id="reportId">—</b></div>
+                <div><span>Created</span><b id="reportDate">—</b></div>
+                <div><span>Analysis engine</span><b>Demo mode</b></div>
+              </div>
+
+              <div class="result-actions">
+                <button class="outline-button" id="saveReportButton" type="button">
+                  Save to my reports <span>＋</span>
+                </button>
+                <button class="primary-button" id="reportSignInButton" type="button" data-route="account">
+                  Sign in to keep reports <span>→</span>
+                </button>
+              </div>
+            </section>
+          </div>
+
+          <!-- Wide chatbot underneath both columns -->
+          <section class="panel report-chat" id="reportChat" aria-labelledby="chatTitle">
+            <div class="chat-header">
+              <div class="chat-avatar">AI</div>
+              <div class="chat-title">
+                <span class="section-label">REPORT ASSISTANT</span>
+                <h2 id="chatTitle">Ask about this report</h2>
+                <p><span class="status-light"></span> Answers are based on this report's details</p>
+              </div>
+              <span class="chat-mode-label">LOCAL DEMO</span>
+            </div>
+
+            <div class="chat-body">
+              <div class="chat-messages" id="chatMessages" aria-live="polite">
+                <div class="chat-message bot">
+                  <span class="message-avatar">AI</span>
+                  <div class="message-bubble">
+                    Hi! Ask me about the image details, report fields, or what
+                    would be needed for a real AI-image check.
+                  </div>
+                </div>
+              </div>
+
+              <div class="chat-tools">
+                <div class="chat-quick-questions">
+                  <button type="button" data-chat-prompt="What does the score mean?">Explain the score</button>
+                  <button type="button" data-chat-prompt="What image was analyzed?">Image details</button>
+                  <button type="button" data-chat-prompt="Can you really detect AI images?">Can it detect AI?</button>
+                  <button type="button" data-chat-prompt="How do I export this report?">Export report</button>
+                </div>
+
+                <form class="chat-composer" id="chatForm">
+                  <input id="chatInput" type="text" maxlength="400"
+                    autocomplete="off" placeholder="Ask a question about this report..."
+                    aria-label="Ask a question about this report">
+                  <button class="chat-send" type="submit" aria-label="Send question">↑</button>
+                </form>
+              </div>
+            </div>
+
+            <p class="chat-disclaimer">
+              The assistant uses predefined answers in this prototype; it is not connected to an online AI model.
+            </p>
+          </section>
+        </div>
+      </section>
+
+      <!-- SIGN IN / CREATE ACCOUNT -->
+      <section class="app-view inner-view" id="view-account" data-view="account" hidden>
+        <div class="page-container page-content account-page">
+          <div class="page-heading">
+            <button class="back-button" type="button" data-back aria-label="Go back">
+              ← <span>Back</span>
+            </button>
+            <div class="heading-copy">
+              <span class="section-label">YOUR WORKSPACE</span>
+              <h1>Reports that stay <span>with you</span></h1>
+              <p>Create a local demo account to organize your report list in this browser.</p>
+            </div>
+          </div>
+
+          <div class="account-layout">
+            <section class="account-promo panel">
+              <div class="account-art">
+                <div class="art-shield">✓</div>
+                <span class="art-orbit orbit-1"></span>
+                <span class="art-orbit orbit-2"></span>
+              </div>
+
+              <span class="section-label">PERSONAL REPORT SPACE</span>
+              <h2>One workspace<br>for your image checks.</h2>
+              <p>
+                Save report summaries, open a previous result, and keep your
+                report list organized under your demo profile.
+              </p>
+
+              <div class="account-benefits">
+                <span>✓ <b>Report history</b></span>
+                <span>✓ <b>Saved report details</b></span>
+                <span>✓ <b>Quick access from this browser</b></span>
+              </div>
+
+              <div class="prototype-note">
+                <span>ⓘ</span>
+                <p>
+                  This demo account is stored in your browser only. For real
+                  secure accounts and syncing across devices, connect a backend
+                  such as Supabase or Firebase.
+                </p>
+              </div>
+            </section>
+
+            <section class="account-form-panel panel">
+              <div id="accountProfile" class="account-profile hidden">
+                <div class="profile-avatar" id="profileAvatar">A</div>
+                <span class="section-label">SIGNED IN LOCALLY</span>
+                <h2 id="profileName">Welcome back</h2>
+                <p id="profileEmail">email@example.com</p>
+
+                <div class="profile-stats">
+                  <div><b id="profileReportCount">0</b><span>Saved reports</span></div>
+                  <div><b>Local</b><span>Storage mode</span></div>
+                </div>
+
+                <button class="primary-button full-button" type="button" data-route="history">
+                  Open my reports <span>→</span>
+                </button>
+                <button class="text-button logout-button" id="signOutButton" type="button">
+                  Sign out
+                </button>
+              </div>
+
+              <div id="authForms">
+                <div class="auth-switch">
+                  <button class="auth-tab active" id="showSignIn" type="button" data-auth-mode="signin">
+                    Sign in
+                  </button>
+                  <button class="auth-tab" id="showSignUp" type="button" data-auth-mode="signup">
+                    Create account
+                  </button>
+                </div>
+
+                <form id="signInForm" class="auth-form">
+                  <span class="section-label">WELCOME BACK</span>
+                  <h2>Sign in</h2>
+                  <p class="muted-text">Access the reports saved to this browser profile.</p>
+
+                  <label for="signInEmail">Email address</label>
+                  <input id="signInEmail" name="email" type="email"
+                    autocomplete="email" placeholder="you@example.com" required>
+
+                  <label for="signInPassword">Password</label>
+                  <input id="signInPassword" name="password" type="password"
+                    autocomplete="current-password" placeholder="Enter your password" required>
+
+                  <button class="primary-button full-button" type="submit">
+                    Sign in <span>→</span>
+                  </button>
+
+                  <p class="auth-switch-copy">
+                    New here? <button type="button" data-auth-mode="signup">Create an account</button>
+                  </p>
+                  <p class="auth-error hidden" id="signInError" role="alert"></p>
+                </form>
+
+                <form id="signUpForm" class="auth-form hidden">
+                  <span class="section-label">GET STARTED</span>
+                  <h2>Create your account</h2>
+                  <p class="muted-text">Set up a local demo profile for your report list.</p>
+
+                  <label for="signUpName">Full name</label>
+                  <input id="signUpName" name="name" type="text"
+                    autocomplete="name" maxlength="70" placeholder="Your name" required>
+
+                  <label for="signUpEmail">Email address</label>
+                  <input id="signUpEmail" name="email" type="email"
+                    autocomplete="email" placeholder="you@example.com" required>
+
+                  <label for="signUpPassword">
+                    Password <span class="field-hint">8+ characters</span>
+                  </label>
+                  <input id="signUpPassword" name="password" type="password"
+                    autocomplete="new-password" minlength="8"
+                    placeholder="Create a password" required>
+
+                  <label for="signUpConfirm">Confirm password</label>
+                  <input id="signUpConfirm" name="confirm" type="password"
+                    autocomplete="new-password" minlength="8"
+                    placeholder="Repeat your password" required>
+
+                  <button class="primary-button full-button" type="submit">
+                    Create account <span>→</span>
+                  </button>
+
+                  <p class="auth-switch-copy">
+                    Already registered? <button type="button" data-auth-mode="signin">Sign in</button>
+                  </p>
+                  <p class="auth-error hidden" id="signUpError" role="alert"></p>
+                </form>
+              </div>
+            </section>
+          </div>
+        </div>
+      </section>
+
+      <!-- SAVED REPORT HISTORY -->
+      <section class="app-view inner-view" id="view-history" data-view="history" hidden>
+        <div class="page-container page-content history-page">
+          <div class="page-heading">
+            <button class="back-button" type="button" data-back aria-label="Go back">
+              ← <span>Back</span>
+            </button>
+            <div class="heading-copy">
+              <span class="section-label">YOUR WORKSPACE</span>
+              <h1>My <span>reports</span></h1>
+              <p>Saved image-analysis report summaries in this browser.</p>
+            </div>
+            <button class="primary-button compact-button" type="button" data-route="home">
+              ＋ New image
+            </button>
+          </div>
+
+          <section class="panel history-panel">
+            <div class="card-heading">
+              <div>
+                <span class="section-label">REPORT LIBRARY</span>
+                <h2>Recent reports</h2>
+              </div>
+              <span class="ready-chip" id="historyCount">0 reports</span>
+            </div>
+
+            <div class="history-table-wrap">
+              <table class="history-table">
+                <thead>
+                  <tr>
+                    <th>Image</th>
+                    <th>Report ID</th>
+                    <th>Date</th>
+                    <th>Sample score</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="historyBody">
+                  <tr>
+                    <td colspan="6" class="empty-table-cell">
+                      No saved reports yet. Analyze a photo and save its report here.
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="history-bottom">
+              <span>ⓘ These are demo report records, not verified AI predictions.</span>
+              <button class="text-button" id="clearHistoryButton" type="button">
+                Clear report list
+              </button>
+            </div>
+          </section>
+        </div>
+      </section>
+
+      <!-- FEATURES -->
+      <section class="app-view inner-view" id="view-features" data-view="features" hidden>
+        <div class="page-container page-content generic-page">
+          <div class="page-heading">
+            <button class="back-button" type="button" data-back aria-label="Go back">
+              ← <span>Back</span>
+            </button>
+            <div class="heading-copy">
+              <span class="section-label">BUILT FOR CLARITY</span>
+              <h1>Simple tools. <span>Clear reports.</span></h1>
+              <p>An image-only workflow designed around reviewing a photo and its report.</p>
+            </div>
+          </div>
+
+          <div class="features-grid">
+            <article class="panel feature-card">
+              <span class="feature-icon">▧</span>
+              <h2>Image-only upload</h2>
+              <p>Choose JPG, PNG, or WEBP images with file-size validation and instant previews.</p>
+            </article>
+            <article class="panel feature-card">
+              <span class="feature-icon">⌁</span>
+              <h2>Structured report</h2>
+              <p>Keep file name, dimensions, file size, timestamp, and report ID together.</p>
+            </article>
+            <article class="panel feature-card">
+              <span class="feature-icon">▤</span>
+              <h2>PDF export</h2>
+              <p>Print or save a formatted report as a PDF from the browser.</p>
+            </article>
+            <article class="panel feature-card">
+              <span class="feature-icon">✦</span>
+              <h2>Report assistant</h2>
+              <p>Ask questions about the report using the built-in demo response rules.</p>
+            </article>
+            <article class="panel feature-card">
+              <span class="feature-icon">◷</span>
+              <h2>Personal report list</h2>
+              <p>Organize saved reports under a local browser profile.</p>
+            </article>
+            <article class="panel feature-card">
+              <span class="feature-icon">◇</span>
+              <h2>Light and dark themes</h2>
+              <p>Switch between dark cyber colors and a brighter high-contrast light mode.</p>
+            </article>
+          </div>
+
+          <div class="prototype-note wide-note">
+            <span>ⓘ</span>
+            <p>
+              <b>Important:</b> actual AI-image detection is not active until
+              a trained model is integrated and validated. Current analysis
+              numbers are placeholders.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ABOUT -->
+      <section class="app-view inner-view" id="view-about" data-view="about" hidden>
+        <div class="page-container page-content generic-page">
+          <div class="page-heading">
+            <button class="back-button" type="button" data-back aria-label="Go back">
+              ← <span>Back</span>
+            </button>
+            <div class="heading-copy">
+              <span class="section-label">ABOUT THE PROJECT</span>
+              <h1>AI Image <span>Detector</span></h1>
+              <p>A front-end prototype for an image-authenticity checking tool.</p>
+            </div>
+          </div>
+
+          <div class="about-grid">
+            <section class="panel about-card">
+              <span class="section-label">THE WORKFLOW</span>
+              <h2>Upload → Analyze → Review</h2>
+              <p>
+                The interface accepts a photo, shows its file information,
+                and creates a sample report with a report assistant and export option.
+              </p>
+
+              <div class="workflow-line">
+                <span>01</span>
+                <div><b>Upload image</b><small>Check file format, size, and dimensions.</small></div>
+              </div>
+              <div class="workflow-line">
+                <span>02</span>
+                <div><b>Run the demo flow</b><small>Show progress and prepare sample report fields.</small></div>
+              </div>
+              <div class="workflow-line">
+                <span>03</span>
+                <div><b>Save or export</b><small>Keep a report in this browser or save it as PDF.</small></div>
+              </div>
+            </section>
+
+            <section class="panel about-card">
+              <span class="section-label">WHAT IS STILL NEEDED</span>
+              <h2>Connect a real AI model</h2>
+              <p>
+                The front end alone cannot reliably determine whether a picture
+                was generated by AI. That requires a trained image classifier
+                or detection model, measured on relevant data, and an integration endpoint.
+              </p>
+
+              <div class="prototype-note">
+                <span>ⓘ</span>
+                <p>
+                  Do not use the sample percentage as evidence that an image
+                  is real or AI-generated. The app currently runs without a real detection model.
+                </p>
+              </div>
+
+              <button class="primary-button" type="button" data-route="home">
+                Try the interface <span>→</span>
+              </button>
+            </section>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="app-footer">
+      <span>AI Image Detector <i>•</i> Front-end prototype</span>
+      <span>AI classification model not connected</span>
+    </footer>
+  </div>
+
+  <div id="toastRegion" class="toast-region" aria-live="polite" aria-atomic="true"></div>
+</body>
+</html>
